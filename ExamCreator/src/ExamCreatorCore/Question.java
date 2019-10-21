@@ -1,13 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ExamCreatorCore;
 
 /**
+ * The question class contains the questions data: the title, the questions text, value, and the answer
+ * It also contains the file if the question is saved
+ * 
+ * 
  *@version 0.1.0
- * @author David
+ * @author dphaighton
  */
 import java.io.BufferedReader;
 import java.io.File;
@@ -31,7 +30,7 @@ public class Question
     boolean ready=false;
     boolean saved;
     /**
-     * 
+     * This is to be called when making a new question
      * 
      * @param script the script text to be run that defines the fields of the question
      * @param title the title of the Question
@@ -46,8 +45,10 @@ public class Question
     }
     
     /**
+     * This is to be called when the file is being read from a file
      * 
      * @param file The javaScript file where the question is defined
+     * @throws java.io.FileNotFoundException this happens when the file cannot be found
      * 
      */
     public Question(File file) throws FileNotFoundException, IOException
@@ -89,7 +90,7 @@ public class Question
             file.delete();
     }
     
-    /**
+    /**This will return null if update hasn't been called
      * 
      * @return the title of the question
      */
@@ -98,7 +99,7 @@ public class Question
         return title;
     }
     
-    /**
+    /** This will return null if update hasn't been called
      * 
      * @return the question text
      */
@@ -108,7 +109,7 @@ public class Question
     }
     
     
-    /**
+    /** This will return null if update hasn't been called
      * 
      * @return the answer to the question
      */
@@ -117,17 +118,29 @@ public class Question
         return answer;
     }
     
+    /**
+     * This will compare answers
+     * @param answer the answer entered
+     * @return true if the answers are equal
+     */
     public boolean isCorrect(String answer)
     {
-        return answer.equalsIgnoreCase(answer);
+        return answer.equals(answer);
     }
     
-    
+    /**
+     * This returns 0 if update hasn't been called
+     * @return the value of the question/how many points its worth
+     */
     public float getValue()
     {
         return value;
     }
     
+    /**
+     * This will give the answer, value, and text their values by running the javaScript script that defines the function.
+     * @throws ScriptException 
+     */
     public void update() throws ScriptException
     {
         scriptEngine.eval(script);
@@ -140,12 +153,19 @@ public class Question
         ready=true;
     }
     
-    
+    /**
+     * the method will return null if the file is yet to be saved
+     * @return the file that defines the fields of the class
+     */
     public File getFile()
     {
         return file;
     }
     
+    /**
+     * 
+     * @return returns true if the question is stored on the computer
+     */
     public boolean isSaved()
     {
         return saved;
