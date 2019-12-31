@@ -1,13 +1,5 @@
 package ExamCreatorCore;
 
-/**
- * The question class contains the questions data: the title, the questions text, value, and the answer
- * It also contains the file if the question is saved
- * 
- * 
- *@version 0.1.0
- * @author dphaighton
- */
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -16,9 +8,20 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import javax.script.*;
 
+/**
+ * The question class contains the questions data: the title, the questions text, value, and the answer
+ * It also contains the file if the question is saved
+ * 
+ * 
+ *@version 0.1.0
+ * @author dphaighton
+ */
+
+
 public class Question 
 {
-    
+    //the variables to look for in the javascript file
+    public static final String VALUE_KEY="value",TEXT_KEY="text",ANSWER_KEY="answer";
     
     ScriptEngineManager manager = new ScriptEngineManager();
     ScriptEngine scriptEngine = manager.getEngineByName("javascript");
@@ -145,9 +148,9 @@ public class Question
     {
         scriptEngine.eval(script);
         
-        value=Float.parseFloat(scriptEngine.get("value").toString());
-        questionText = scriptEngine.get("text").toString();
-        answer = scriptEngine.get("answer").toString();
+        value=Float.parseFloat(scriptEngine.get(VALUE_KEY).toString());
+        questionText = scriptEngine.get(TEXT_KEY).toString();
+        answer = scriptEngine.get(ANSWER_KEY).toString();
         
         
         ready=true;
